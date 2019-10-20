@@ -5,8 +5,8 @@ public class KMPDemo {
 	static int[] prefixTable = new int[102];
 	 
 	public static void main(String[] args) {
-		
-		String pattern = "ababaca";
+		String str = "ABCABCDABABCDABCDABDE";
+		String pattern = "ABCDABD";
 		int len = pattern.length();
 		generatePrefixTable(pattern.toCharArray(), len);
 		
@@ -16,9 +16,9 @@ public class KMPDemo {
 		System.out.println();
 		
 		
-		String str = "bacbababababacaca";
-		int index = patternMatchingKMP(str.toCharArray(), pattern.toCharArray());
-		System.out.println(index);
+		
+//		int index = patternMatchingKMP(str.toCharArray(), pattern.toCharArray());
+//		System.out.println(index);
 	}
 	
 	static int patternMatchingKMP(char[] str, char[] pattern){

@@ -32,9 +32,9 @@ public class KMPME {
             StringBuilder sb = new StringBuilder();
             sb.append(text);
             pattern = sb.reverse().toString();
-            
+            prefixTable = new int[n + 5];
             int index = kmpSearch();
-           
+//           System.out.println(index);
             for(int i = pattern.length()-1; i >= index; i--){
             	System.out.printf("%c", pattern.charAt(i));
             }
@@ -58,6 +58,8 @@ public class KMPME {
             j++;
             prefixTable[i] = j;
         }
+        
+//        System.out.println(Arrays.toString(prefixTable));
     }
  
     private static int  kmpSearch() {

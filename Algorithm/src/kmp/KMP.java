@@ -47,9 +47,7 @@ public class KMP {
             if(str.charAt(i) == pattern.charAt(j)){
                 if(j == m - 1){
                     count++;
-//                  i = i - j + 1;
                     j = prefixTable[j - 1];
-//                  i++;
                     continue;
                 }
                 i++;

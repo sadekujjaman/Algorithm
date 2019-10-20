@@ -3,6 +3,12 @@ package robincarp;
 public class RobinCarp1 {
 
 	public static void main(String[] args) {
+		text = "ababbababba".toCharArray();
+		pattern = "abba".toCharArray();
+		m = pattern.length;
+		find_h();
+		pattern_hash_value();
+		rabin_karp_algo();
 		
 	}
 	static char text[] = new char[1000005];
@@ -14,8 +20,9 @@ public class RobinCarp1 {
 	    h = 1;
 
 	    for(int i = 1; i < m; ++i)
-	        h = (h * d) % q;
+	        h = (h * d) % q ;
 
+	    System.out.println(h);
 	   // printf("The value of h is: %d\n", h);
 	}
 
@@ -26,6 +33,7 @@ public class RobinCarp1 {
 	    for(int i = 0; i < m; ++i)
 	        p = (p * d + pattern[i]) % q;
 
+	    System.out.println(p);
 	    //printf("The hash value of pattern is: %d\n", p);
 	}
 
@@ -44,7 +52,8 @@ public class RobinCarp1 {
 	                t += q;
 	        }
 
-	       // printf("The value of t at index: %d is --> %d\n", i, t);
+	       
+	       System.out.printf("The value of t at index: %d is --> %d\n", i, t);
 	        if((i >= m - 1) && (t == p))
 	        {
 	            for(j = 0; j < m; ++j)
@@ -55,7 +64,7 @@ public class RobinCarp1 {
 
 	            if(j == m){
 	                counter++;
-	                //printf("The pattern is found at index --> %d\n", i - m + 1);
+	                System.out.printf("The pattern is found at index --> %d\n", i - m + 1);
 	            }
 
 	        }
