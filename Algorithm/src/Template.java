@@ -38,52 +38,13 @@ public class Template {
 
 */
 
-		/*
-		 
-		int n = in.nextInt();
-			int arr[] = new int[n];
-			
-			for(int i = 0; i < n; i++) {
-				arr[i] = in.nextInt();
-			}
-			
-			Arrays.sort(arr);
-			long count[] = new long[MAX];
-			
-			for(int i = 0; i < n; i++) {
-				if(arr[i] < MAX) {
-					count[arr[i]]++;
-				}
-			}
-			
-			long pow[] = new long[MAX];
-			for(int i = 1; i < MAX; i++) {
-				if(count[i] == 0) {
-					break;
-				}
-				else {
-					pow[i] = bigMod(2, count[i], MOD) - 1;
-				}
-			}
-			long val = bigMod(2, n, MOD);
-			
-			long val1 = val;
-			long val2 = (long)n;
-			long r = 1;
-			for(int i = 1; i < MAX; i++) {
-				if(pow[i] != 0) {
-					r = (pow[i] * r) % MOD;
-					val1 = (val1 + (r * bigMod(2, val2 - count[i], MOD))) % MOD;
-					val2 -= count[i];
-					
-				}
-				else {
-					break;
-				}
-			}
-			ans.append(val1 + "\n");
-		 
-		 */
+
+//		
+		
+		
+		
+		System.out.println("HELLO");
+
 		
 		out.flush();
 		out.close();
@@ -1261,6 +1222,78 @@ private static class KruskalGraph{
 		return mid;
 	}
 
+	
+	/*
+	 * 
+	 * count number of inversions that must be swapped to sort arr
+	 * 
+	 */
+	private static long getInversion(int n, int[] arr) {
+		return mergeSort(n, arr, 0, n - 1);
+	}
+	
+	private static long mergeSort(int n, int[] arr, int left, int right) {
+		long count = 0;
+		if (left < right) {
+			int mid = (left + right) / 2;
+			count += mergeSort(n, arr, left, mid);
+			count += mergeSort(n, arr, mid + 1, right);
+			count += merge(n, arr, left, mid, right);
+		}
+		return count;
+	}
+
+	private static long merge(int n, int[] arr, int left, int mid, int right) {
+
+		int n1 = mid - left + 1;
+		int n2 = right - mid;
+
+		int temp1[] = new int[n1];
+		int temp2[] = new int[n2];
+
+		for (int i = 0; i < n1; i++) {
+			temp1[i] = arr[left + i];
+		}
+
+		for (int i = 0; i < n2; i++) {
+			temp2[i] = arr[mid + i + 1];
+		}
+
+		int i = 0;
+		int j = 0;
+
+		int k = left;
+		long swaps = 0;
+		int c = 0;
+		while (i < n1 && j < n2) {
+			if (temp1[i] <= temp2[j]) {
+				arr[k] = temp1[i];
+				i++;
+			} else {
+				arr[k] = temp2[j];
+				swaps += (mid + j + 1) - (left + i) - c;
+				c++;
+				j++;
+
+			}
+			k++;
+		}
+
+		while (i < n1) {
+			arr[k] = temp1[i];
+			i++;
+			k++;
+		}
+
+		while (j < n2) {
+			arr[k] = temp2[j];
+			j++;
+			k++;
+		}
+
+		return swaps;
+	}
+	
 	/*
 	 * upper_bound() is a standard library function in C++ defined in the header .
 	 * It returns an iterator pointing to the first element in the range [first,
@@ -1296,6 +1329,60 @@ private static class KruskalGraph{
 			}
 		}
 		if (arr[mid] < num) {
+			return mid + 1;
+		}
+		return mid;
+	}
+	
+	private static long lowerBound(List<Long> list, long val) {
+		int start = 0;
+		int len = list.size();
+		int end = len - 1;
+		int mid = 0;
+
+		while (true) {
+			if (start > end) {
+				break;
+			}
+			mid = (start + end) / 2;
+			long v = list.get(mid);
+			if (v == val) {
+				return mid;
+			}
+			if (v > val) {
+				end = mid - 1;
+			} else {
+				start = mid + 1;
+			}
+		}
+		if (list.get(mid) < val) {
+			return mid + 1;
+		}
+		return mid;
+	}
+
+	private static long upperBound(List<Long> list, long val) {
+		int start = 0;
+		int len = list.size();
+		int end = len - 1;
+		int mid = 0;
+
+		while (true) {
+			if (start > end) {
+				break;
+			}
+			mid = (start + end) / 2;
+			long v = list.get(mid);
+			if (v == val) {
+				return mid + 1;
+			}
+			if (v > val) {
+				end = mid - 1;
+			} else {
+				start = mid + 1;
+			}
+		}
+		if (list.get(mid) < val) {
 			return mid + 1;
 		}
 		return mid;
